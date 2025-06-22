@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - E-commerce</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Pink table border */
+    .table-bordered th,
+    .table-bordered td {
+      border: 2px solid #ff69b4 !important;
+    }
+    .table thead {
+      background-color: #ffe4ec;
+      color: #d63384;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top Nav -->
+<div class="top-nav-bar d-flex justify-content-between align-items-center p-3 bg-light">
+  <div class="search-box d-flex align-items-center gap-2">
+    <img src="image/bars.png" class="bars-icon" width="20">
+    <img src="image/logo.png" class="logo" alt="Logo" height="30">
+    <input type="text" class="form-control form-control-sm" placeholder="Search...">
+    <img src="image/icons8-search-50.png" class="search-icon" width="20" alt="Search">
+  </div>
+  <div class="menu-bar">
+    <ul class="list-unstyled d-flex gap-3 mb-0">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cart.html">Cart <i class="fa fa-shopping-cart"></i></a></li>
+      <li><a href="signin.html">Sign In</a></li>
+      <li><a href="logout.html">Log Out</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Dashboard Cards -->
+<div class="container mt-4">
+  <h2>Dashboard</h2>
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-white" style="background-color: #ffb6c1;">
+        <div class="card-body">
+          <h5 class="card-title">Total Orders</h5>
+          <p class="card-text">120</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white" style="background-color: #ff69b4;">
+        <div class="card-body">
+          <h5 class="card-title">Total Products</h5>
+          <p class="card-text">58</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white" style="background-color: #ff1493;">
+        <div class="card-body">
+          <h5 class="card-title">Users</h5>
+          <p class="card-text">89</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white" style="background-color: #db7093;">
+        <div class="card-body">
+          <h5 class="card-title">Revenue</h5>
+          <p class="card-text">$4,200</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Table -->
+  <h3>Product Management</h3>
+  <table class="table table-bordered bg-white">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="image/images (2).jpg" alt="Product" width="60"></td>
+        <td>Fitness Watch</td>
+        <td>$40</td>
+        <td>23</td>
+        <td>
+          <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      <tr>
+        <td><img src="image/hed.jpeg" alt="Product" width="60"></td>
+        <td>Headphones</td>
+        <td>$60</td>
+        <td>12</td>
+        <td>
+          <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      <tr>
+        <td><img src="image/smart pho.webp" alt="Product" width="60"></td>
+        <td>Smartphone</td>
+        <td>$300</td>
+        <td>35</td>
+        <td>
+          <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Graphs Section -->
+  <div class="row mt-5 justify-content-center">
+    <div class="col-md-4 mb-4 text-center">
+      <h6>Stock Distribution</h6>
+      <canvas id="doughnutChart" width="300" height="200" style="max-width:100%;"></canvas>
+    </div>
+    <div class="col-md-4 mb-4 text-center">
+      <h6>Stock Levels</h6>
+      <canvas id="barChart" width="300" height="200" style="max-width:100%;"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js Script -->
+<script>
+  const labels = ['Watch', 'Headphones', 'Phone'];
+  const stockData = [23, 12, 35];
+  const pinkShades = ['#ffb6c1', '#ff69b4', '#ff1493'];
+
+  new Chart(document.getElementById('doughnutChart'), {
+    type: 'doughnut',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: stockData,
+        backgroundColor: pinkShades
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Stock',
+        data: stockData,
+        backgroundColor: pinkShades
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: { beginAtZero: true }
+      }
+    }
+  });
+  
+
+</script>
+</body>
+</html>
+<style>
+  h2 {
+    color: #d63384;           /* Bootstrap's pink shade */
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ff69b4;
+    padding-bottom: 5px;
+  }
+
+  h3 {
+    color: #c2185b;           /* Deep pink tone */
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-left: 4px solid #ff69b4;
+    padding-left: 10px;
+  }
+</style>
